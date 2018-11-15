@@ -1,3 +1,9 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [Form1.cs](./CS/GetTextMethodsExample/Form1.cs) (VB: [Form1.vb](./VB/GetTextMethodsExample/Form1.vb))
+* [frmBrowser.cs](./CS/GetTextMethodsExample/frmBrowser.cs) (VB: [frmBrowser.vb](./VB/GetTextMethodsExample/frmBrowser.vb))
+<!-- default file list end -->
 # How to save the text of a document range in different formats
 
 
