@@ -33,7 +33,6 @@ namespace GetTextMethods {
             this.btnHtmlCustomUri = new DevExpress.XtraEditors.SimpleButton();
             this.richEditControl = new DevExpress.XtraRichEdit.RichEditControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
-            this.panelControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnMht
@@ -66,7 +65,7 @@ namespace GetTextMethods {
             this.btnHtmlOptions.Name = "btnHtmlOptions";
             this.btnHtmlOptions.Size = new System.Drawing.Size(163, 23);
             this.btnHtmlOptions.TabIndex = 7;
-            this.btnHtmlOptions.Text = "Html using export options";
+            this.btnHtmlOptions.Text = "Html (export options)";
             this.btnHtmlOptions.Click += new System.EventHandler(this.btnHtmlOptions_Click);
             // 
             // btnXml
@@ -110,17 +109,14 @@ namespace GetTextMethods {
             this.btnHtmlCustomUri.Name = "btnHtmlCustomUri";
             this.btnHtmlCustomUri.Size = new System.Drawing.Size(163, 23);
             this.btnHtmlCustomUri.TabIndex = 2;
-            this.btnHtmlCustomUri.Text = "Html using custom UriProvider";
+            this.btnHtmlCustomUri.Text = "Html (custom UriProvider)";
             this.btnHtmlCustomUri.Click += new System.EventHandler(this.btnHtmlCustomUri_Click);
             // 
             // richEditControl
             // 
             this.richEditControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richEditControl.EnableToolTips = true;
             this.richEditControl.Location = new System.Drawing.Point(0, 64);
             this.richEditControl.Name = "richEditControl";
-            this.richEditControl.Options.Bookmarks.ConflictNameResolution = DevExpress.XtraRichEdit.ConflictNameAction.Keep;
-            this.richEditControl.Options.Export.PlainText.ExportFinalParagraphMark = DevExpress.XtraRichEdit.Export.PlainText.ExportFinalParagraphMark.Never;
             this.richEditControl.Size = new System.Drawing.Size(963, 460);
             this.richEditControl.TabIndex = 6;
             this.richEditControl.Text = "richEditControl1";
@@ -133,10 +129,8 @@ namespace GetTextMethods {
             this.Controls.Add(this.richEditControl);
             this.Controls.Add(this.panelControl1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Save Document to Different Formats";
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
-            this.panelControl1.ResumeLayout(false);
-            this.panelControl1.PerformLayout();
             this.ResumeLayout(false);
 
         }
