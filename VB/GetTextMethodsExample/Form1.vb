@@ -1,11 +1,12 @@
-﻿Imports System
+Imports System
 Imports System.Windows.Forms
 Imports System.IO
 Imports System.Diagnostics
 Imports System.Drawing.Imaging
 
 Namespace GetTextMethods
-    Partial Public Class Form1
+
+    Public Partial Class Form1
         Inherits DevExpress.XtraEditors.XtraForm
 
         Private fileName As String = String.Empty
@@ -15,41 +16,37 @@ Namespace GetTextMethods
             richEditControl.LoadDocument("sample_document.docx", DevExpress.XtraRichEdit.DocumentFormat.OpenXml)
         End Sub
 
-        Private Sub btnMht_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnMht.Click
-            Me.fileName = GetFileName("Web Archive|*.mht")
+        Private Sub btnMht_Click(ByVal sender As Object, ByVal e As EventArgs)
+            fileName = GetFileName("Web Archive|*.mht")
             Dim mhtText As String = String.Empty
-
-            If String.IsNullOrEmpty(fileName) Then
-                Return
-            End If
+            If String.IsNullOrEmpty(fileName) Then Return
             Try
-'                #Region "#exportmht"
-                If Me.richEditControl.Document.Selection.Length > 0 Then
+'#Region "#exportmht"
+                If richEditControl.Document.Selection.Length > 0 Then
                     Dim selection As DevExpress.XtraRichEdit.API.Native.DocumentRange = richEditControl.Document.Selection
                     Dim doc As DevExpress.XtraRichEdit.API.Native.SubDocument = selection.BeginUpdateDocument()
                     mhtText = doc.GetMhtText(selection)
                     selection.EndUpdateDocument(doc)
                 Else
-                mhtText = richEditControl.Document.GetMhtText(richEditControl.Document.Range)
+                    mhtText = richEditControl.Document.GetMhtText(richEditControl.Document.Range)
                 End If
-'                #End Region ' #exportmht
-                SaveFile(Me.fileName, mhtText)
-                OpenFile(Me.fileName)
+
+'#End Region  ' #exportmht
+                SaveFile(fileName, mhtText)
+                OpenFile(fileName)
             Finally
-                Me.fileName = String.Empty
+                fileName = String.Empty
             End Try
         End Sub
-        Private Sub btnHtmlCustomUri_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnHtmlCustomUri.Click
-            Me.fileName = GetFileName("Hypertext Markup Language|*.html")
-            Dim htmlText As String = String.Empty
 
-            If String.IsNullOrEmpty(fileName) Then
-                Return
-            End If
+        Private Sub btnHtmlCustomUri_Click(ByVal sender As Object, ByVal e As EventArgs)
+            fileName = GetFileName("Hypertext Markup Language|*.html")
+            Dim htmlText As String = String.Empty
+            If String.IsNullOrEmpty(fileName) Then Return
             Try
-'                #Region "#exporthtml"
-                Dim uriProvider As New CustomUriProvider(Path.GetDirectoryName(fileName))
-                If Me.richEditControl.Document.Selection.Length > 0 Then
+'#Region "#exporthtml"
+                Dim uriProvider As CustomUriProvider = New CustomUriProvider(Path.GetDirectoryName(fileName))
+                If richEditControl.Document.Selection.Length > 0 Then
                     Dim selection As DevExpress.XtraRichEdit.API.Native.DocumentRange = richEditControl.Document.Selection
                     Dim doc As DevExpress.XtraRichEdit.API.Native.SubDocument = selection.BeginUpdateDocument()
                     htmlText = doc.GetHtmlText(selection, uriProvider)
@@ -57,21 +54,21 @@ Namespace GetTextMethods
                 Else
                     htmlText = richEditControl.Document.GetHtmlText(richEditControl.Document.Range, uriProvider)
                 End If
-'                #End Region ' #exporthtml
-                SaveFile(Me.fileName, htmlText)
-                OpenFile(Me.fileName)
+
+'#End Region  ' #exporthtml
+                SaveFile(fileName, htmlText)
+                OpenFile(fileName)
             Finally
-                Me.fileName = String.Empty
+                fileName = String.Empty
             End Try
         End Sub
 
-        Private Sub btnHtmlOptions_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnHtmlOptions.Click
-'            #Region "#exporthtmloptions"
-            Dim myBrowser As New frmBrowser()
-            Dim myExportOptions As New DevExpress.XtraRichEdit.Export.HtmlDocumentExporterOptions()
+        Private Sub btnHtmlOptions_Click(ByVal sender As Object, ByVal e As EventArgs)
+'#Region "#exporthtmloptions"
+            Dim myBrowser As frmBrowser = New frmBrowser()
+            Dim myExportOptions As DevExpress.XtraRichEdit.Export.HtmlDocumentExporterOptions = New DevExpress.XtraRichEdit.Export.HtmlDocumentExporterOptions()
             myExportOptions.Encoding = System.Text.Encoding.Unicode
-
-            If Me.richEditControl.Document.Selection.Length > 0 Then
+            If richEditControl.Document.Selection.Length > 0 Then
                 Dim selection As DevExpress.XtraRichEdit.API.Native.DocumentRange = richEditControl.Document.Selection
                 Dim doc As DevExpress.XtraRichEdit.API.Native.SubDocument = selection.BeginUpdateDocument()
                 myBrowser.SetHtml(doc.GetHtmlText(selection, Nothing, myExportOptions))
@@ -82,17 +79,15 @@ Namespace GetTextMethods
 
             myBrowser.Show()
         End Sub
-        '        #End Region ' #exporthtmloptions
-        Private Sub btnDocx_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnDocx.Click
-            Me.fileName = GetFileName("Word 2007 Document|*.docx")
-            Dim bytes() As Byte
 
-            If String.IsNullOrEmpty(fileName) Then
-                Return
-            End If
+'#End Region  ' #exporthtmloptions
+        Private Sub btnDocx_Click(ByVal sender As Object, ByVal e As EventArgs)
+            fileName = GetFileName("Word 2007 Document|*.docx")
+            Dim bytes As Byte()
+            If String.IsNullOrEmpty(fileName) Then Return
             Try
-'                #Region "#exportdocx"
-                If Me.richEditControl.Document.Selection.Length > 0 Then
+'#Region "#exportdocx"
+                If richEditControl.Document.Selection.Length > 0 Then
                     Dim selection As DevExpress.XtraRichEdit.API.Native.DocumentRange = richEditControl.Document.Selection
                     Dim doc As DevExpress.XtraRichEdit.API.Native.SubDocument = selection.BeginUpdateDocument()
                     bytes = doc.GetOpenXmlBytes(selection)
@@ -100,23 +95,22 @@ Namespace GetTextMethods
                 Else
                     bytes = richEditControl.Document.GetOpenXmlBytes(richEditControl.Document.Range)
                 End If
-'                #End Region ' #exportdocx
-                SaveFile(Me.fileName, bytes)
-                OpenFile(Me.fileName)
+
+'#End Region  ' #exportdocx
+                SaveFile(fileName, bytes)
+                OpenFile(fileName)
             Finally
-                Me.fileName = String.Empty
+                fileName = String.Empty
             End Try
         End Sub
-        Private Sub btnRtf_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnRtf.Click
-            Me.fileName = GetFileName("Rich Text Format|*.rtf")
-            Dim rtfText As String = String.Empty
 
-            If String.IsNullOrEmpty(fileName) Then
-                Return
-            End If
+        Private Sub btnRtf_Click(ByVal sender As Object, ByVal e As EventArgs)
+            fileName = GetFileName("Rich Text Format|*.rtf")
+            Dim rtfText As String = String.Empty
+            If String.IsNullOrEmpty(fileName) Then Return
             Try
-'                #Region "#exportrtf"
-                If Me.richEditControl.Document.Selection.Length > 0 Then
+'#Region "#exportrtf"
+                If richEditControl.Document.Selection.Length > 0 Then
                     Dim selection As DevExpress.XtraRichEdit.API.Native.DocumentRange = richEditControl.Document.Selection
                     Dim doc As DevExpress.XtraRichEdit.API.Native.SubDocument = selection.BeginUpdateDocument()
                     rtfText = doc.GetRtfText(selection)
@@ -124,24 +118,22 @@ Namespace GetTextMethods
                 Else
                     rtfText = richEditControl.Document.GetRtfText(richEditControl.Document.Range)
                 End If
-'                #End Region ' #exportrtf
-                SaveFile(Me.fileName, rtfText)
-                OpenFile(Me.fileName)
+
+'#End Region  ' #exportrtf
+                SaveFile(fileName, rtfText)
+                OpenFile(fileName)
             Finally
-                Me.fileName = String.Empty
+                fileName = String.Empty
             End Try
         End Sub
 
-        Private Sub btnXml_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnXml.Click
-            Me.fileName = GetFileName("Microsoft Word XML Document|*.xml")
+        Private Sub btnXml_Click(ByVal sender As Object, ByVal e As EventArgs)
+            fileName = GetFileName("Microsoft Word XML Document|*.xml")
             Dim wordMLText As String = String.Empty
-
-            If String.IsNullOrEmpty(fileName) Then
-                Return
-            End If
+            If String.IsNullOrEmpty(fileName) Then Return
             Try
-'                #Region "#exportxml"
-                If Me.richEditControl.Document.Selection.Length > 0 Then
+'#Region "#exportxml"
+                If richEditControl.Document.Selection.Length > 0 Then
                     Dim selection As DevExpress.XtraRichEdit.API.Native.DocumentRange = richEditControl.Document.Selection
                     Dim doc As DevExpress.XtraRichEdit.API.Native.SubDocument = selection.BeginUpdateDocument()
                     wordMLText = doc.GetWordMLText(selection)
@@ -149,30 +141,31 @@ Namespace GetTextMethods
                 Else
                     wordMLText = richEditControl.Document.GetWordMLText(richEditControl.Document.Range)
                 End If
-'                #End Region ' #exportxml
-                SaveFile(Me.fileName, wordMLText)
-                OpenFile(Me.fileName)
+
+'#End Region  ' #exportxml
+                SaveFile(fileName, wordMLText)
+                OpenFile(fileName)
             Finally
-                Me.fileName = String.Empty
+                fileName = String.Empty
             End Try
         End Sub
 
-
-
         Private Sub SaveFile(ByVal fileName As String, ByVal value As String)
-            Using stream As New FileStream(fileName, FileMode.Create, FileAccess.Write)
-                Using writer As New StreamWriter(stream)
+            Using stream As FileStream = New FileStream(fileName, FileMode.Create, FileAccess.Write)
+                Using writer As StreamWriter = New StreamWriter(stream)
                     writer.Write(value)
                 End Using
             End Using
         End Sub
-        Private Sub SaveFile(ByVal fileName As String, ByVal bytes() As Byte)
-            Using stream As New FileStream(fileName, FileMode.Create, FileAccess.Write)
+
+        Private Sub SaveFile(ByVal fileName As String, ByVal bytes As Byte())
+            Using stream As FileStream = New FileStream(fileName, FileMode.Create, FileAccess.Write)
                 stream.Write(bytes, 0, bytes.Length)
             End Using
         End Sub
+
         Private Function GetFileName(ByVal filter As String) As String
-            Using saveFileDialog As New SaveFileDialog()
+            Using saveFileDialog As SaveFileDialog = New SaveFileDialog()
                 saveFileDialog.Filter = filter
                 saveFileDialog.RestoreDirectory = True
                 saveFileDialog.CheckFileExists = False
@@ -180,15 +173,15 @@ Namespace GetTextMethods
                 saveFileDialog.OverwritePrompt = True
                 saveFileDialog.DereferenceLinks = True
                 saveFileDialog.ValidateNames = True
-                If saveFileDialog.ShowDialog(Me) = DialogResult.OK Then
-                    Return saveFileDialog.FileName
-                End If
+                If saveFileDialog.ShowDialog(Me) = DialogResult.OK Then Return saveFileDialog.FileName
             End Using
+
             Return String.Empty
         End Function
+
         Private Sub OpenFile(ByVal fileName As String)
-            If MessageBox.Show("File is saved. " & ControlChars.Lf & "Do you want to open this file?", "GetText Example", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                Dim process As New Process()
+            If MessageBox.Show("File is saved. " & Microsoft.VisualBasic.Constants.vbLf & "Do you want to open this file?", "GetText Example", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                Dim process As Process = New Process()
                 Try
                     process.StartInfo.FileName = fileName
                     process.Start()
@@ -196,56 +189,50 @@ Namespace GetTextMethods
                 End Try
             End If
         End Sub
-        #Region "#beforeexport"
+
+'#Region "#beforeexport"
         Private Sub richEditControl_BeforeExport(ByVal sender As Object, ByVal e As DevExpress.XtraRichEdit.BeforeExportEventArgs)
             Dim options As DevExpress.XtraRichEdit.Export.HtmlDocumentExporterOptions = TryCast(e.Options, DevExpress.XtraRichEdit.Export.HtmlDocumentExporterOptions)
             If options IsNot Nothing Then
                 options.CssPropertiesExportType = DevExpress.XtraRichEdit.Export.Html.CssPropertiesExportType.Link
                 options.HtmlNumberingListExportFormat = DevExpress.XtraRichEdit.Export.Html.HtmlNumberingListExportFormat.HtmlFormat
-                options.TargetUri = Path.GetFileNameWithoutExtension(Me.fileName)
+                options.TargetUri = Path.GetFileNameWithoutExtension(fileName)
             End If
         End Sub
-        #End Region ' #beforeexport
-
-
+'#End Region  ' #beforeexport
     End Class
 
-    #Region "#uriprovider"
+'#Region "#uriprovider"
     Public Class CustomUriProvider
         Implements DevExpress.Office.Services.IUriProvider
 
-    Private rootDirecory As String
-    Public Sub New(ByVal rootDirectory As String)
-        If String.IsNullOrEmpty(rootDirectory) Then
-            DevExpress.Office.Utils.Exceptions.ThrowArgumentException("rootDirectory", rootDirectory)
-        End If
-        Me.rootDirecory = rootDirectory
-    End Sub
+        Private rootDirecory As String
 
-        Public Function CreateCssUri(ByVal rootUri As String, ByVal styleText As String, ByVal relativeUri As String) As String _
-            Implements DevExpress.Office.Services.IUriProvider.CreateCssUri
-            Dim cssDir As String = String.Format("{0}\{1}", Me.rootDirecory, rootUri.Trim("/"c))
-            If Not Directory.Exists(cssDir) Then
-                Directory.CreateDirectory(cssDir)
-            End If
+        Public Sub New(ByVal rootDirectory As String)
+            If String.IsNullOrEmpty(rootDirectory) Then DevExpress.Office.Utils.Exceptions.ThrowArgumentException("rootDirectory", rootDirectory)
+            rootDirecory = rootDirectory
+        End Sub
+
+        Public Function CreateCssUri(ByVal rootUri As String, ByVal styleText As String, ByVal relativeUri As String) As String Implements DevExpress.Office.Services.IUriProvider.CreateCssUri
+            Dim cssDir As String = String.Format("{0}\{1}", rootDirecory, rootUri.Trim("/"c))
+            If Not Directory.Exists(cssDir) Then Directory.CreateDirectory(cssDir)
             Dim cssFileName As String = String.Format("{0}\style.css", cssDir)
             File.AppendAllText(cssFileName, styleText)
             Return GetRelativePath(cssFileName)
         End Function
-        Public Function CreateImageUri(ByVal rootUri As String, ByVal image As DevExpress.Office.Utils.OfficeImage, ByVal relativeUri As String) As String _
-            Implements DevExpress.Office.Services.IUriProvider.CreateImageUri
-            Dim imagesDir As String = String.Format("{0}\{1}", Me.rootDirecory, rootUri.Trim("/"c))
-            If Not Directory.Exists(imagesDir) Then
-                Directory.CreateDirectory(imagesDir)
-            End If
+
+        Public Function CreateImageUri(ByVal rootUri As String, ByVal image As DevExpress.Office.Utils.OfficeImage, ByVal relativeUri As String) As String Implements DevExpress.Office.Services.IUriProvider.CreateImageUri
+            Dim imagesDir As String = String.Format("{0}\{1}", rootDirecory, rootUri.Trim("/"c))
+            If Not Directory.Exists(imagesDir) Then Directory.CreateDirectory(imagesDir)
             Dim imageName As String = String.Format("{0}\{1}.png", imagesDir, Guid.NewGuid())
             image.NativeImage.Save(imageName, ImageFormat.Png)
             Return GetRelativePath(imageName)
         End Function
+
         Private Function GetRelativePath(ByVal path As String) As String
-        Dim substring As String = path.Substring(Me.rootDirecory.Length)
-        Return substring.Replace("\", "/").Trim("/"c)
-    End Function
+            Dim substring As String = path.Substring(rootDirecory.Length)
+            Return substring.Replace("\", "/").Trim("/"c)
+        End Function
     End Class
-    #End Region ' #uriprovider
+'#End Region  ' #uriprovider
 End Namespace

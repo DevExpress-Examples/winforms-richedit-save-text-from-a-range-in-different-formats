@@ -1,5 +1,7 @@
-﻿Namespace GetTextMethods
-    Partial Public Class Form1
+Namespace GetTextMethods
+
+    Partial Class Form1
+
         ''' <summary>
         ''' Required designer variable.
         ''' </summary>
@@ -10,14 +12,14 @@
         ''' </summary>
         ''' <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-            If disposing AndAlso (components IsNot Nothing) Then
-                components.Dispose()
+            If disposing AndAlso (Me.components IsNot Nothing) Then
+                Me.components.Dispose()
             End If
+
             MyBase.Dispose(disposing)
         End Sub
 
-        #Region "Windows Form Designer generated code"
-
+'#Region "Windows Form Designer generated code"
         ''' <summary>
         ''' Required method for Designer support - do not modify
         ''' the contents of this method with the code editor.
@@ -32,7 +34,7 @@
             Me.btnDocx = New DevExpress.XtraEditors.SimpleButton()
             Me.btnHtmlCustomUri = New DevExpress.XtraEditors.SimpleButton()
             Me.richEditControl = New DevExpress.XtraRichEdit.RichEditControl()
-            DirectCast(Me.panelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+            CType((Me.panelControl1), System.ComponentModel.ISupportInitialize).BeginInit()
             Me.panelControl1.SuspendLayout()
             Me.SuspendLayout()
             ' 
@@ -43,6 +45,7 @@
             Me.btnMht.Size = New System.Drawing.Size(50, 23)
             Me.btnMht.TabIndex = 1
             Me.btnMht.Text = "Mht"
+            AddHandler Me.btnMht.Click, New System.EventHandler(AddressOf Me.btnMht_Click)
             ' 
             ' panelControl1
             ' 
@@ -66,6 +69,7 @@
             Me.btnHtmlOptions.Size = New System.Drawing.Size(163, 23)
             Me.btnHtmlOptions.TabIndex = 7
             Me.btnHtmlOptions.Text = "Html using export options"
+            AddHandler Me.btnHtmlOptions.Click, New System.EventHandler(AddressOf Me.btnHtmlOptions_Click)
             ' 
             ' btnXml
             ' 
@@ -74,6 +78,7 @@
             Me.btnXml.Size = New System.Drawing.Size(50, 23)
             Me.btnXml.TabIndex = 6
             Me.btnXml.Text = "Xml"
+            AddHandler Me.btnXml.Click, New System.EventHandler(AddressOf Me.btnXml_Click)
             ' 
             ' labelControl1
             ' 
@@ -90,6 +95,7 @@
             Me.btnRtf.Size = New System.Drawing.Size(50, 23)
             Me.btnRtf.TabIndex = 4
             Me.btnRtf.Text = "Rtf"
+            AddHandler Me.btnRtf.Click, New System.EventHandler(AddressOf Me.btnRtf_Click)
             ' 
             ' btnDocx
             ' 
@@ -98,6 +104,7 @@
             Me.btnDocx.Size = New System.Drawing.Size(50, 23)
             Me.btnDocx.TabIndex = 3
             Me.btnDocx.Text = "Docx"
+            AddHandler Me.btnDocx.Click, New System.EventHandler(AddressOf Me.btnDocx_Click)
             ' 
             ' btnHtmlCustomUri
             ' 
@@ -106,6 +113,7 @@
             Me.btnHtmlCustomUri.Size = New System.Drawing.Size(163, 23)
             Me.btnHtmlCustomUri.TabIndex = 2
             Me.btnHtmlCustomUri.Text = "Html using custom UriProvider"
+            AddHandler Me.btnHtmlCustomUri.Click, New System.EventHandler(AddressOf Me.btnHtmlCustomUri_Click)
             ' 
             ' richEditControl
             ' 
@@ -128,24 +136,29 @@
             Me.Controls.Add(Me.panelControl1)
             Me.Name = "Form1"
             Me.Text = "Form1"
-            DirectCast(Me.panelControl1, System.ComponentModel.ISupportInitialize).EndInit()
+            CType((Me.panelControl1), System.ComponentModel.ISupportInitialize).EndInit()
             Me.panelControl1.ResumeLayout(False)
             Me.panelControl1.PerformLayout()
             Me.ResumeLayout(False)
-
         End Sub
 
-        #End Region
+'#End Region
+        Private btnMht As DevExpress.XtraEditors.SimpleButton
 
-        Private WithEvents btnMht As DevExpress.XtraEditors.SimpleButton
         Private panelControl1 As DevExpress.XtraEditors.PanelControl
-        Private WithEvents btnHtmlCustomUri As DevExpress.XtraEditors.SimpleButton
-        Private WithEvents btnDocx As DevExpress.XtraEditors.SimpleButton
-        Private WithEvents btnRtf As DevExpress.XtraEditors.SimpleButton
+
+        Private btnHtmlCustomUri As DevExpress.XtraEditors.SimpleButton
+
+        Private btnDocx As DevExpress.XtraEditors.SimpleButton
+
+        Private btnRtf As DevExpress.XtraEditors.SimpleButton
+
         Private labelControl1 As DevExpress.XtraEditors.LabelControl
-        Private WithEvents btnXml As DevExpress.XtraEditors.SimpleButton
+
+        Private btnXml As DevExpress.XtraEditors.SimpleButton
+
         Private richEditControl As DevExpress.XtraRichEdit.RichEditControl
-        Private WithEvents btnHtmlOptions As DevExpress.XtraEditors.SimpleButton
+
+        Private btnHtmlOptions As DevExpress.XtraEditors.SimpleButton
     End Class
 End Namespace
-
